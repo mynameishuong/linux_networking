@@ -1,6 +1,6 @@
 # Virtual ECU Telemetry Lab — Giải thích thiết kế, workflow và specification
 
-**Phiên bản tài liệu:** 1.0 · **Ngày:** 09/11/2026 · **Đối tượng:** người học Embedded Linux Networking từ cơ bản đến Automotive Ethernet/SOME/IP.
+**Phiên bản tài liệu:** 1.1 · **Ngày:** 09/11/2026 · **Đối tượng:** người học Embedded Linux Networking từ cơ bản đến Automotive Ethernet, SOME/IP và DoIP/UDS.
 
 Tài liệu này là bản giải thích tổng thể cho project trong thư mục `linux_networking`. Đọc từ trên xuống để hiểu hệ thống, hoặc dùng mục lục để tra cứu khi code và debug.
 
@@ -17,6 +17,7 @@ Tài liệu này là bản giải thích tổng thể cho project trong thư m�
 7. [Specification V2: SOME/IP Telemetry Service](#7-specification-v2-someip-telemetry-service)
 8. [Lộ trình triển khai và hướng phát triển](#8-lộ-trình-triển-khai-và-hướng-phát-triển)
 9. [Thuật ngữ và tài liệu tham chiếu](#9-thuật-ngữ-và-tài-liệu-tham-chiếu)
+10. [V3: DoIP, signal và actuator](#10-v3-doip-signal-và-actuator)
 
 ## 1. Mục tiêu và phạm vi hiện tại
 
@@ -50,6 +51,7 @@ Từ nền đó, project phát triển thành service dữ liệu dùng SOME/IP,
 | Cú pháp Bash/Python | ĐÃ KIỂM TRA | Bash syntax, Python AST và guard từ chối chạy ngoài Linux đã được kiểm tra |
 | UDP, reconnect, `epoll`, router, VLAN | ĐỀ XUẤT | Chưa có implementation |
 | SOME/IP, SOME/IP-SD, CAN gateway | ĐỀ XUẤT | Được định nghĩa hướng triển khai trong tài liệu này |
+| DoIP/UDS, signal-to-actuator, diagnostic routine V3 | ĐỀ XUẤT | Lý thuyết và spec chuyên sâu trong `docs/03-doip-signal-actuator.md` |
 
 ### 1.3. Các quyết định thiết kế ban đầu
 
@@ -737,3 +739,23 @@ Hoàn thành các milestone tạo ra một demo và portfolio có thể review. 
 Liên kết thực hành nội bộ: [setup](docs/00-setup.md), [bốn lab](docs/01-labs.md), [milestone chi tiết](docs/02-roadmap.md), [nhật ký](notes/journal.md), [test source](tests/test_tcp.py).
 
 Các đường dẫn AUTOSAR trong tài liệu pin R24-11 để người học đọc cùng một revision. Mọi số liệu timing hoặc ID mang nhãn “đề xuất/lab” là thiết kế của project; khi tích hợp hệ thống khác phải thống nhất lại service/interface/network contract trước.
+
+## 10. V3: DoIP, signal và actuator
+
+Hướng học nâng cao được bổ sung theo ưu tiên DoIP: **Virtual ECU Diagnostic & Actuation Lab**. Đọc [lý thuyết, sơ đồ end-to-end và spec V3](docs/03-doip-signal-actuator.md).
+
+V3 có ba đường vào cùng ECU quạt giả lập: signal nhiệt độ cho normal control, SOME/IP service cho command/status và DoIP/UDS cho self-test. Các adapter hội tụ tại application controller/arbiter; một nơi sở hữu đầu ra actuator.
+
+```text
+Signal ── unpack / decode ── vehicle model ── normal controller ──┐
+SOME/IP ── method decoder ── typed normal command ───────────────┤
+DoIP ── UDS dispatcher ── diagnostic routine ────────────────────┤
+                                                              ▼
+                                                  arbiter → HAL → fan simulator
+                                                              │
+                                               feedback → routine result / event
+```
+
+Tài liệu V3 giải thích signal/message/PDU, DoIP khác UDS ở đâu, logical addressing/routing activation, byte-level routine request, diagnostic session, admission policy, target/applied/actual state và mapping sang AUTOSAR Classic/Adaptive. ID, signal layout và policy actuator của V3 đều là thiết kế lab, chưa triển khai.
+
+Thứ tự sau phần cơ bản có thể đổi theo ưu tiên: **signal codec → fan simulator → UDS handler → DoIP → session/routine → SOME/IP → arbitration → AUTOSAR integration**. Không bắt buộc hoàn thành toàn bộ service V2 rồi mới học diagnostic.

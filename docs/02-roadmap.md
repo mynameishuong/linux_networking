@@ -2,6 +2,8 @@
 
 Mục tiêu dài hạn: Virtual Embedded Gateway. Mỗi mốc mở rộng hệ thống đã chạy, có capture và ghi chú chứng minh. Thời gian dưới đây là gợi ý cho khoảng 8–10 giờ học/tuần, không phải cam kết đạt trình độ expert.
 
+**Ưu tiên mới sau phần cơ bản:** tập trung DoIP/UDS, signal/message và đường xử lý đến actuator. Xem [lộ trình V3 chuyên sâu](03-doip-signal-actuator.md#12-thứ-tự-học-sau-phần-cơ-bản): signal codec → actuator simulator → UDS → DoIP → SOME/IP và arbitration. Các mốc socket/Linux bên dưới vẫn là nền, có thể xen kẽ theo nhu cầu của V3.
+
 | Mốc | Thời gian gợi ý | Bạn làm thêm | Bằng chứng hoàn thành |
 | --- | --- | --- | --- |
 | M0: Linux và gói tin | Tuần 1–2 | Làm 4 lab có sẵn; học process, fd, subnet, ARP, route | Capture ARP/ICMP/TCP và giải thích đường đi |

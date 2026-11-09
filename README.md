@@ -20,6 +20,8 @@ Tên “gateway” ở phiên bản đầu là **ứng dụng nhận dữ liệu
 
 Đọc [thiết kế tổng thể, workflow, spec V1 và hướng SOME/IP V2](PROJECT_DESIGN_SPEC.md) để hiểu code đã viết và kiến trúc phát triển.
 
+Hướng nâng cao tập trung **DoIP/UDS và signal → actuator**: [lý thuyết, workflow và spec V3](docs/03-doip-signal-actuator.md), dùng ECU quạt giả lập để kết hợp diagnostic với SOME/IP.
+
 1. Đọc [Chuẩn bị Linux](docs/00-setup.md).
 2. Làm [các lab đầu tiên](docs/01-labs.md) theo thứ tự: loopback → ARP/ping → TCP → delay/loss.
 3. Dùng [các mốc phát triển](docs/02-roadmap.md) để tự viết thêm tính năng.
