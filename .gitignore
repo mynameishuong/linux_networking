@@ -2,3 +2,6 @@ build/
 captures/*.pcap*
 __pycache__/
 *.pyc
+inputs/
+received/
+*.part.*

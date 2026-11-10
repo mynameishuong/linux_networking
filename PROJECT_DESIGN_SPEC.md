@@ -6,6 +6,8 @@ Tài liệu này là bản giải thích tổng thể cho project trong thư m�
 
 **Quy ước trạng thái:** `ĐÃ VIẾT` nghĩa là đã có trong source; `CHƯA CHẠY LINUX` nghĩa là chưa được chứng minh bằng runtime; `ĐỀ XUẤT` là yêu cầu thiết kế cho bước tiếp theo. Viết spec không đồng nghĩa tính năng đã được triển khai.
 
+**Bổ sung ngày 10/11/2026:** đã thêm bản [gửi ảnh TCP bằng C với workflow/UML xuất PNG từ draw.io](docs/04-image-transfer.md). Bản này có protocol IMG1 riêng, không đổi framing telemetry V1. Các trạng thái V1/V2/V3 trong tài liệu dưới đây vẫn chỉ áp dụng đúng phạm vi từng bản.
+
 ## Mục lục
 
 1. [Mục tiêu và phạm vi hiện tại](#1-mục-tiêu-và-phạm-vi-hiện-tại)

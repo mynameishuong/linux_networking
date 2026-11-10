@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="UML states - receiver" name="UML states - receiver">
+    <mxGraphModel dx="1370" dy="1170" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1370" pageHeight="1170" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" value="UML STATE — RECEIVER: THÀNH CÔNG VÀ LỖI" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=28;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="25" width="1290" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Luồng chính đi xuống. Mỗi nhánh lỗi kết thúc ngay bên phải, không nối chéo." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="1290" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;shape=ellipse;fillColor=#172b4d;strokeColor=#172b4d;" vertex="1" parent="1">
+          <mxGeometry x="295" y="160" width="26" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="READ_HEADER&#10;Đọc đủ 12 byte, validate magic/size" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="240" width="460" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="BAD_HEADER = 1&#10;Header thiếu/sai hoặc size không hợp lệ&#10;Dọn temp; thử gửi NACK; exit 1" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="240" width="470" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;shape=ellipse;fillColor=#ba4942;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="280" width="25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" source="n4" target="n5" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="Lỗi" source="n5" target="n6" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="" source="n6" target="n7" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" value="RECEIVE_BODY&#10;Nhận đủ size và ghi file tạm" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="410" width="460" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" value="BAD_STREAM = 4 / FILE_ERROR = 3&#10;Lỗi nhận, tạo hoặc ghi file tạm&#10;Dọn temp; thử gửi NACK; exit 1" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="410" width="470" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" value="" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;shape=ellipse;fillColor=#ba4942;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="450" width="25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="OK" source="n5" target="n11" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" value="Lỗi" source="n11" target="n12" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="" source="n12" target="n13" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n17" value="VERIFY&#10;Phải có EOF; CRC32 phải khớp" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="580" width="460" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" value="BAD_STREAM = 4 / BAD_CRC = 2&#10;Có byte thừa hoặc CRC32 sai&#10;Dọn temp; thử gửi NACK; exit 1" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="580" width="470" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n19" value="" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;shape=ellipse;fillColor=#ba4942;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="620" width="25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" value="OK" source="n11" target="n17" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" value="Lỗi" source="n17" target="n18" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" value="" source="n18" target="n19" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n23" value="COMMIT&#10;Flush, fsync, close, link file mới" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="750" width="460" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="n24" value="FILE_ERROR = 3&#10;Lỗi tạo/ghi/sync/link; file cũ giữ nguyên&#10;Dọn temp; thử gửi NACK; exit 1" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="750" width="470" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n25" value="" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;shape=ellipse;fillColor=#ba4942;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="790" width="25" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" value="OK" source="n17" target="n23" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e27" value="Lỗi" source="n23" target="n24" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e28" value="" source="n24" target="n25" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n29" value="SEND_ACK&#10;File đã công bố → gửi status OK" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="920" width="460" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="e30" value="OK" source="n23" target="n29" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n31" value="" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;shape=ellipse;fillColor=#172b4d;" vertex="1" parent="1">
+          <mxGeometry x="295" y="1080" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" value="ACK gửi thành công → exit 0" source="n29" target="n31" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n33" value="Nếu gửi ACK thất bại sau COMMIT:&#10;receiver exit 1 nhưng file có thể đã tồn tại.&#10;Không tự retry bằng cách ghi đè file đó." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="920" width="470" height="135" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

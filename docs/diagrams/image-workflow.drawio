@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="Image transfer workflow" name="Image transfer workflow">
+    <mxGraphModel dx="1300" dy="1120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1120" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" value="GỬ ẢNH QUA TCP — WORKFLOW" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=30;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="1180" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Đọc từ trên xuống  |  1 kết nối / 1 ảnh  |  Tối đa 10 MiB" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="1180" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="BÊN GỬ&#10;image_sender" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=23;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="160" width="350" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="DỮ LIỆU TRÊN TCP" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="160" width="300" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" value="BÊN NHẬN&#10;image_receiver" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=23;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="160" width="350" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="1. Mở file dạng binary&#10;Kiểm tra size 1 byte..10 MiB" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="260" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" value="1. Listen rồi accept&#10;Chờ một kết nối" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="260" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" value="2. Đọc file, tính CRC32&#10;Quay lại đầu file" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="370" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" value="2. Socket nonblocking&#10;Tạo deadline truyền" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="370" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="" source="n7" target="n9" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="" source="n8" target="n10" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" value="3. Connect và gửi header&#10;Magic + size + CRC32" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="480" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" value="3. Nhận đủ header 12 byte&#10;Kiểm tra magic và size" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="480" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" value="" source="n9" target="n13" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="" source="n10" target="n14" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n17" value="4. Đọc và gửi từng khối&#10;Buffer tối đa 4096 byte" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="590" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" value="4. Nhận và ghi file tạm&#10;Cập nhật CRC32 từng khối" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="590" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e19" value="" source="n13" target="n17" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" value="" source="n14" target="n18" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n21" value="5. Half-close chiều gửi&#10;shutdown(SHUT_WR)" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="700" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n22" value="5. Kiểm tra EOF + CRC32&#10;Không nhận thiếu/thừa byte" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="700" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" value="" source="n17" target="n21" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" value="" source="n18" target="n22" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n25" value="6. Chờ ACK từ receiver&#10;Chiều nhận vẫn mở" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="810" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n26" value="6. Flush, fsync, công bố file&#10;Không thay file đã tồn tại" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="810" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e27" value="" source="n21" target="n25" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e28" value="" source="n22" target="n26" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n29" value="7. Kiểm tra status/size/CRC&#10;In Image ACK khi đúng" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="920" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n30" value="7. Gửi ACK 16 byte&#10;Đóng socket và kết thúc" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="850" y="920" width="350" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e31" value="" source="n25" target="n29" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" value="" source="n26" target="n30" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n33" value="HEADER 12 BYTE&#10;IMG1 | size | CRC32" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="480" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e34" value="" source="n13" target="n33" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e35" value="" source="n33" target="n14" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n36" value="IMAGE BYTES&#10;Không dùng strlen()" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="590" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e37" value="" source="n17" target="n36" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e38" value="" source="n36" target="n18" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n39" value="EOF CHIỀU GỬI&#10;Không phải đóng cả socket" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="700" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e40" value="" source="n21" target="n39" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e41" value="" source="n39" target="n22" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n42" value="ACK1 | status | bytes | CRC&#10;OK chỉ sau bước lưu file" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="480" y="920" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e43" value="" source="n30" target="n42" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=1;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e44" value="" source="n42" target="n29" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;entryX=1;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n45" value="TCP ACK ≠ Image ACK. Lỗi/timeout: không công bố ảnh chưa hoàn tất." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="1030" width="1140" height="50" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

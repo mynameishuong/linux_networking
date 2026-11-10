@@ -18,6 +18,8 @@ Tên “gateway” ở phiên bản đầu là **ứng dụng nhận dữ liệu
 
 ## Bắt đầu ở đâu?
 
+**Bản gửi ảnh TCP bằng C đã có source:** [hướng dẫn chạy, giải thích code và workflow/UML bằng ảnh draw.io](docs/04-image-transfer.md). Build riêng bằng `make images`, kiểm tra bằng `make test-images` trong Linux.
+
 Đọc [thiết kế tổng thể, workflow, spec V1 và hướng SOME/IP V2](PROJECT_DESIGN_SPEC.md) để hiểu code đã viết và kiến trúc phát triển.
 
 Hướng nâng cao tập trung **DoIP/UDS và signal → actuator**: [lý thuyết, workflow và spec V3](docs/03-doip-signal-actuator.md), dùng ECU quạt giả lập để kết hợp diagnostic với SOME/IP.
