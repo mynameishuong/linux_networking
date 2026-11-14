@@ -18,11 +18,20 @@ Tên “gateway” ở phiên bản đầu là **ứng dụng nhận dữ liệu
 
 ## Bắt đầu ở đâu?
 
+**V3 DoIP/UDS + SOME/IP + actuator đã chạy được:** [hướng dẫn chạy, giải thích code và workflow draw.io](docs/05-v3-running-lab.md). Chạy nhanh tại gốc project:
+
+```bash
+python -m advanced.build
+python -m advanced demo
+```
+
+Demo tự chạy ECU, signal producer, SOME/IP consumer và DoIP tester trên loopback. Core điều khiển/UDS/HAL bằng C; network adapters bằng Python standard library. Chạy được trên Windows hiện tại; Linux dùng `make v3`. [Báo cáo kiểm chứng và giới hạn](docs/v3-validation.md).
+
 **Bản gửi ảnh TCP bằng C đã có source:** [hướng dẫn chạy, giải thích code và workflow/UML bằng ảnh draw.io](docs/04-image-transfer.md). Build riêng bằng `make images`, kiểm tra bằng `make test-images` trong Linux.
 
 Đọc [thiết kế tổng thể, workflow, spec V1 và hướng SOME/IP V2](PROJECT_DESIGN_SPEC.md) để hiểu code đã viết và kiến trúc phát triển.
 
-Hướng nâng cao tập trung **DoIP/UDS và signal → actuator**: [lý thuyết, workflow và spec V3](docs/03-doip-signal-actuator.md), dùng ECU quạt giả lập để kết hợp diagnostic với SOME/IP.
+Học lý thuyết **DoIP/UDS và signal → actuator** tại [contract và giải thích V3](docs/03-doip-signal-actuator.md), rồi đối chiếu bản chạy ở hướng dẫn phía trên.
 
 1. Đọc [Chuẩn bị Linux](docs/00-setup.md).
 2. Làm [các lab đầu tiên](docs/01-labs.md) theo thứ tự: loopback → ARP/ping → TCP → delay/loss.
@@ -38,6 +47,10 @@ Hướng nâng cao tập trung **DoIP/UDS và signal → actuator**: [lý thuy�
 | `src/net.c` | Framing, byte order, partial send/recv, timeout socket |
 | `scripts/lab.sh` | Tạo/dọn mạng ảo, kiểm tra ping, thêm delay/loss |
 | `tests/test_tcp.py` | Integration test với các binary C thật |
+| `advanced/core/` | C signal codec, UDS/session/routine, arbiter và actuator HAL |
+| `advanced/ecu.py` | Runtime DoIP/SOME/IP/SD, UDP signal và tùy chọn SocketCAN |
+| `advanced/client.py` | Tester và consumers sử dụng socket thật |
+| `advanced/tests/` | Unit test C core, protocol tests và network integration V3 |
 
 Ví dụ nhanh **trong Linux**, chạy ở thư mục project:
 
@@ -72,7 +85,7 @@ Ví dụ `hello`: header `00 00 00 05`, sau đó 5 byte `68 65 6c 6c 6f`. Không
 
 TCP là byte stream và không giữ ranh giới bản tin. Vì vậy code phải đọc đủ header, kiểm tra length, rồi đọc đủ payload; một `send()` không tương ứng một `recv()` hay một packet. Tham khảo [tcp(7)](https://man7.org/linux/man-pages/man7/tcp.7.html) và [recv(2)](https://man7.org/linux/man-pages/man2/recv.2.html).
 
-## Giới hạn để bạn học tiếp
+## Giới hạn V1 để bạn học tiếp
 
 - IPv4 dạng số; chưa DNS/IPv6, UDP, reconnect hoặc `epoll`.
 - Server có thể nhận nhiều client theo thời gian, nhưng chỉ xử lý **một kết nối đang hoạt động**. Backlog không phải cơ chế xử lý đồng thời.
@@ -80,7 +93,9 @@ TCP là byte stream và không giữ ranh giới bản tin. Vì vậy code phả
 - Payload test có thể là binary, nhưng log chỉ dành cho text. Chưa lưu trữ, xác thực hoặc mã hóa; dùng cho lab.
 - veth giúp học network stack; nó không mô phỏng MAC/PHY, DMA, IRQ hay Ethernet driver thật.
 
-## Trạng thái kiểm chứng khi khởi tạo
+## Trạng thái kiểm chứng V1 khi khởi tạo
 
 Đã kiểm tra cú pháp Bash và Python trên máy Windows. Chưa build/chạy binary C hoặc tạo namespace vì phiên làm việc này chưa có Linux runtime dùng được. Chạy `make test` trong Linux để kiểm tra framing, nhiều bản tin cùng stream, frame lỗi, disconnect, timeout và client C.
+
+Trạng thái khởi tạo trên không mô tả runtime V3. Kết quả mới của V3 và bản gửi ảnh nằm trong tài liệu riêng từng bản.
 # linux_networking

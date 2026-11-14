@@ -1,6 +1,6 @@
 # Từ message trong xe đến actuator — DoIP, UDS, SOME/IP và AUTOSAR
 
-**Phiên bản:** 1.0 · **Ngày:** 09/11/2026 · **Trạng thái:** lý thuyết và spec đề xuất cho bản nâng cao; chưa có implementation DoIP/UDS/actuator trong source hiện tại.
+**Phiên bản:** 1.1 · **Cập nhật:** 14/11/2026 · **Trạng thái:** có runtime V3 cho signal, DoIP/UDS, SOME/IP và fan simulator; xem [hướng dẫn chạy và phạm vi đã triển khai](05-v3-running-lab.md).
 
 Tài liệu này trả lời câu hỏi: **một ECU nhận byte từ mạng, tách message, hiểu signal/lệnh rồi điều khiển một actuator như thế nào?** Ví dụ xuyên suốt là ECU điều khiển **quạt giả lập**. Mọi ID, layout signal, thời gian, điều kiện và luật điều khiển có nhãn lab đều do project định nghĩa, không phải thông số của xe/OEM.
 
@@ -98,27 +98,9 @@ Trong lab đề xuất: tester tìm node bằng UDP, mở TCP đến port 13400,
 
 ### 3.2. Luồng kết nối và chẩn đoán
 
-```mermaid
-sequenceDiagram
-    participant T as Diagnostic tester
-    participant D as DoIP entity
-    participant U as UDS handler
-    participant A as Application / actuator
-    T->>D: Vehicle identification qua UDP
-    D-->>T: Identification response
-    T->>D: TCP connection
-    T->>D: Routing activation request
-    D-->>T: Routing activation response
-    T->>D: Diagnostic message chứa UDS request
-    D->>D: Kiểm tra header, source, target, routing state
-    D-->>T: DoIP diagnostic ACK/NACK theo kết quả tầng DoIP
-    D->>U: UDS request khi được chấp nhận chuyển lên
-    U->>U: Kiểm tra SID, length, session, conditions
-    U->>A: Gọi nghiệp vụ nếu hợp lệ
-    A-->>U: Accepted / rejected / status
-    U-->>D: UDS response
-    D-->>T: Diagnostic message chứa UDS response
-```
+[![v3-diagnostic-sequence](images/v3-diagnostic-sequence.png)](images/v3-diagnostic-sequence.png)
+
+[Source draw.io](diagrams/v3-diagnostic-sequence.drawio).
 
 Sơ đồ giản lược phân trách nhiệm; thứ tự ACK/response trên thực tế còn phụ thuộc implementation và timing. **Routing activation thành công chưa cấp quyền chạy mọi diagnostic service.** Session, authorization và điều kiện thực thi được kiểm tra ở các lớp liên quan.
 
@@ -175,27 +157,9 @@ Các field và cách tạo request/đọc response tham khảo [udsoncan service
 
 ### 4.1. Ba đầu vào, một actuator owner
 
-```mermaid
-flowchart TB
-    SIG["Signal producer: nhiệt độ / speed"] --> CAN["CAN/vcan adapter + signal codec"]
-    APP["Normal service client"] --> SOME["SOME/IP adapter: method / event"]
-    TEST["Diagnostic tester"] --> DOIP["DoIP: TCP stream + routing"]
-    DOIP --> UDS["UDS: session / DID / RID / conditions"]
-    CAN --> MODEL["Vehicle model: value + quality + timestamp"]
-    SOME --> CMD["Typed command / setpoint"]
-    MODEL --> CTRL["Normal control logic"]
-    UDS --> DIAG["Diagnostic routine manager"]
-    MODEL --> DIAG
-    CTRL --> ARB["Arbiter: chọn owner + kiểm tra điều kiện"]
-    CMD --> ARB
-    DIAG --> ARB
-    ARB --> HAL["Actuator abstraction: apply target"]
-    HAL --> FAN["Fan simulator"]
-    FAN --> FB["Feedback: target / applied / actual / fault"]
-    FB --> MODEL
-    FB --> DIAG
-    MODEL --> PUB["SOME/IP status + UDS readback"]
-```
+[![v3-workflow](images/v3-workflow.png)](images/v3-workflow.png)
+
+[Source draw.io](diagrams/v3-workflow.drawio).
 
 Không cho network callback ghi PWM trực tiếp. Callback tạo dữ liệu/lệnh đã kiểm tra; một control task sở hữu đầu ra và quyết định cập nhật actuator. Quy tắc này là **thiết kế của project**, giúp tránh hai nguồn ghi đè nhau.
 
@@ -260,7 +224,7 @@ Routine một giây không có nghĩa network thread ngủ một giây. Handler 
 
 ### 6.1. Message layout do lab định nghĩa
 
-**CAN ID:** `0x321` standard · **Payload:** đúng 8 byte · **Chu kỳ mục tiêu:** 100 ms. Chưa có message này trong code.
+**CAN ID:** `0x321` standard · **Payload:** đúng 8 byte · **Chu kỳ mục tiêu:** 100 ms. Codec và producer đã có trong `advanced/`.
 
 | Vị trí | Field | Encoding lab |
 | --- | --- | --- |
@@ -444,17 +408,9 @@ Negative response và việc thực thi callback/routine phải tuân theo cấu
 
 ### 7.6. Trạng thái routine bất đồng bộ
 
-```mermaid
-stateDiagram-v2
-    [*] --> IDLE
-    IDLE --> RUNNING: Start hợp lệ và owner được cấp
-    RUNNING --> COMPLETED: Hết duration và feedback đáp ứng tiêu chí
-    RUNNING --> FAILED: Actuator fault hoặc kết quả không đạt
-    RUNNING --> ABORTED: Stop / mất điều kiện / hết lease hoặc session
-    COMPLETED --> RUNNING: Start mới hợp lệ
-    FAILED --> RUNNING: Đã clear điều kiện lỗi và Start hợp lệ
-    ABORTED --> RUNNING: Start mới hợp lệ
-```
+[![v3-routine-states](images/v3-routine-states.png)](images/v3-routine-states.png)
+
+[Source draw.io](diagrams/v3-routine-states.drawio).
 
 Lab định nghĩa COMPLETED khi duty được áp dụng và feedback đạt dải `expected_rpm ± 10%` liên tục ít nhất 100 ms trong cửa sổ chạy. Sau khi kết thúc, giữ result snapshot để query; đó có thể là RPM lúc hoàn tất, khác RPM hiện tại sau khi normal control lấy lại owner. Criterion này chỉ áp dụng simulator.
 
@@ -512,7 +468,7 @@ routine_state:uint8
 
 `owner`: 0 FALLBACK, 1 NORMAL_THERMAL, 2 NORMAL_SERVICE, 3 DIAGNOSTIC. Đây là state data, không phải cờ chứng minh lệnh thành công. Routine identity dùng RID + diagnostic context; không đồng nhất nó với `last_service_command_id` của service command.
 
-Event gửi mục tiêu 100 ms và khi state thay đổi; log có thêm fault, timestamps, quality để debug. Dedupe/cache cho service command dùng khóa gồm **client identity + command_id + provider runtime epoch**; request trùng cùng payload không thực thi lại, cùng ID nhưng payload khác là INVALID. Khi provider restart, client phải nhận biết epoch/re-establish context trước khi diễn giải lại kết quả cũ. Đây là thiết kế reliability cho bước sau, chưa được code.
+Spec ý tưởng đặt mục tiêu event định kỳ và khi state thay đổi. Runtime hiện gửi initial event sau subscribe và sau đó định kỳ 100 ms; trace ghi thay đổi state ở control tick. Cache 16 entry/cửa sổ 10 s đã được triển khai, key gồm client identity và command_id trong một runtime epoch; cùng ID/payload không kéo dài lease, payload khác bị từ chối. Chi tiết giới hạn eviction/restart xem [implementation](05-v3-running-lab.md).
 
 ## 9. Đặt pipeline vào AUTOSAR Classic và Adaptive
 
@@ -594,20 +550,15 @@ Một diagnostic gateway cũng có đường riêng: nhận DoIP diagnostic mess
 ### 10.1. Cấu trúc source dự kiến
 
 ```text
-advanced/                         CHƯA TẠO / CHƯA TRIỂN KHAI
-  protocol/doip_stream            reassemble + validate generic header
-  protocol/doip_router            connection/source/target mapping
-  diagnostic/uds_dispatcher       SID/subfunction/DID/RID dispatch
-  diagnostic/session_manager      session + timers + admission context
-  diagnostic/fan_selftest         routine lifecycle/results
-  vehicle/signal_codec            CAN bit packing + physical units
-  vehicle/model                  value/quality/freshness
-  service/someip_adapter          method/event, service availability
-  control/fan_controller          thermal/service targets
-  control/arbiter                 single actuator ownership
-  actuator/hal                    apply/readback interface
-  actuator/fan_simulator          deterministic output + fault injection
-  tools/tester                   DoIP/UDS requests + result reporting
+advanced/
+  core/ecu_core.c        signal codec, model, UDS/session, routine, cache, arbiter
+  core/fan_hal.c         actuator simulator port
+  core.py               ctypes interface
+  protocol.py           DoIP/SOME-IP/SD wire codec, framing
+  ecu.py                network adapters, control loop, trace
+  client.py             tester, signal producer, service/event consumers
+  __main__.py           CLI, end-to-end demo
+  tests/                core, protocol, network tests
 ```
 
 Đây là bản phân module, không bắt buộc mỗi dòng phải là một process hoặc một file. Giai đoạn đầu một process ECU với event loop/control tick là đủ; tách thread/process chỉ khi có lý do và test concurrency.
@@ -640,7 +591,7 @@ Không dùng một biến `connected=true` để thay tất cả các domain tr�
 | Max DoIP payload | Lab cap 4096 byte trước allocation/receive body |
 | TCP frame assembly deadline | Lab 1000 ms, độc lập UDS P2/P2* |
 | Diagnostic concurrent requests | Ban đầu 1 in-flight UDS transaction, 1 actuator routine |
-| Diagnostic queue | Bounded, tối đa 16 validated commands; expiry được kiểm tra lại lúc execute |
+| Diagnostic dispatch | Bản chạy dispatch tuần tự, không có pending command queue; replay cache là 16 entry |
 
 Đây là mục tiêu lab, chưa được đo và không phải mặc định bắt buộc của mọi ECU. Request nhận khi queue đầy phải có policy reject/backpressure rõ; tuyệt đối không âm thầm làm mất command rồi báo ACCEPTED. Với diagnostic profile cụ thể, policy trả lời/đóng kết nối phải được đối chiếu đúng layer.
 
@@ -665,7 +616,7 @@ Các dòng trên minh họa nhiều thời điểm, không phải cùng một l�
 
 ## 11. Test plan và bằng chứng cần có
 
-Tất cả test sau là **đề xuất, chưa viết/chưa chạy**.
+Bảng dưới giữ các mục tiêu nghiệm thu. Core/protocol/socket đã có test; coverage, interop và các phần Linux/hardware chưa chạy được ghi trong [báo cáo kiểm chứng](v3-validation.md).
 
 | ID | Test | Điều phải chứng minh |
 | --- | --- | --- |
@@ -720,4 +671,4 @@ Mốc hoàn thành phần lý thuyết: bạn tự giải thích được **cùn
 
 Nguồn đọc đã được dẫn ngay tại các phần tương ứng. Với AUTOSAR, dùng **R24-11** làm mốc cố định để đọc cùng revision, không khẳng định đó là release mới nhất. Ưu tiên các chương DoIP message layout/connection, DCM RoutineControl/ReadDataByIdentifier, COM signal reception và PWM scaling; không cần đọc toàn bộ specification trong một lượt.
 
-**Kết quả của tài liệu này:** bản thiết kế V3 và kiến thức nền để bắt đầu. Runtime hiện tại vẫn chỉ có TCP telemetry V1; mọi module/ID/record actuator nói trên cần được triển khai và test trước khi coi là chức năng hoạt động.
+**Bản chạy đã có:** [V3 running lab](05-v3-running-lab.md), gồm core C và network adapters Python, demo/test qua socket thật. Tài liệu này giải thích contract/lý thuyết; phạm vi thực tế và những phần tương lai được phân biệt trong tài liệu bản chạy.

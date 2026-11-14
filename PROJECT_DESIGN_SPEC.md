@@ -1,6 +1,6 @@
 # Virtual ECU Telemetry Lab — Giải thích thiết kế, workflow và specification
 
-**Phiên bản tài liệu:** 1.1 · **Ngày:** 09/11/2026 · **Đối tượng:** người học Embedded Linux Networking từ cơ bản đến Automotive Ethernet, SOME/IP và DoIP/UDS.
+**Phiên bản tài liệu:** 1.2 · **Cập nhật:** 14/11/2026 · **Đối tượng:** người học Embedded Linux Networking từ cơ bản đến Automotive Ethernet, SOME/IP và DoIP/UDS.
 
 Tài liệu này là bản giải thích tổng thể cho project trong thư mục `linux_networking`. Đọc từ trên xuống để hiểu hệ thống, hoặc dùng mục lục để tra cứu khi code và debug.
 
@@ -45,15 +45,15 @@ Từ nền đó, project phát triển thành service dữ liệu dùng SOME/IP,
 
 | Hạng mục | Trạng thái | Ý nghĩa chính xác |
 | --- | --- | --- |
-| TCP client/server viết bằng C | ĐÃ VIẾT, CHƯA CHẠY LINUX | Có source và Makefile; chưa xác nhận build/runtime |
+| TCP client/server V1 viết bằng C | ĐÃ CROSS-BUILD, CHƯA CHẠY LINUX | Có source/Makefile và đã cross-build Linux; runtime Linux chưa xác nhận |
 | Header length, partial I/O, giới hạn frame | ĐÃ VIẾT, CHƯA CHẠY LINUX | Có đường xử lý và integration tests tương ứng |
 | Hai namespace nối bằng veth | ĐÃ VIẾT, CHƯA CHẠY LINUX | Có script; chưa tạo topology tại phiên làm việc Windows |
 | Bốn lab tiếng Việt | ĐÃ VIẾT | Có thao tác, kết quả kỳ vọng và câu hỏi tự đánh giá |
-| Bộ integration tests | ĐÃ VIẾT, CHƯA CHẠY LINUX | 9 test methods; không được hiểu là 9 tests đã pass |
+| Bộ integration tests V1 | ĐÃ VIẾT, CHƯA CHẠY LINUX | 9 test methods V1; không gộp kết quả 59 tests của V3 |
 | Cú pháp Bash/Python | ĐÃ KIỂM TRA | Bash syntax, Python AST và guard từ chối chạy ngoài Linux đã được kiểm tra |
-| UDP, reconnect, `epoll`, router, VLAN | ĐỀ XUẤT | Chưa có implementation |
-| SOME/IP, SOME/IP-SD, CAN gateway | ĐỀ XUẤT | Được định nghĩa hướng triển khai trong tài liệu này |
-| DoIP/UDS, signal-to-actuator, diagnostic routine V3 | ĐỀ XUẤT | Lý thuyết và spec chuyên sâu trong `docs/03-doip-signal-actuator.md` |
+| V1 mở rộng UDP/reconnect/`epoll`, router/VLAN | BƯỚC HỌC TIẾP | Không nhầm với UDP và asyncio adapters đã có trong V3 |
+| SOME/IP method/event và SD unicast | ĐÃ TRIỂN KHAI TRONG V3 | Runtime subset, xem `docs/05-v3-running-lab.md`; CAN gateway đa ECU vẫn là bước sau |
+| DoIP/UDS, signal-to-actuator, diagnostic routine V3 | ĐÃ CHẠY END-TO-END TRÊN WINDOWS | C core + Python adapters, test và interop; SocketCAN/namespace Linux chưa chạy |
 
 ### 1.3. Các quyết định thiết kế ban đầu
 
@@ -467,7 +467,7 @@ Vai trò provider/consumer theo nghiệp vụ có thể khác vai trò client/se
 
 ## 7. Specification V2: SOME/IP Telemetry Service
 
-**Tên:** ELN-SOMEIP-V2 · **Trạng thái:** ĐỀ XUẤT, CHƯA CÓ CODE · **Phạm vi:** lab Linux service-oriented telemetry.
+**Tên:** ELN-SOMEIP-V2 · **Trạng thái:** spec thiết kế; một phần method/event/SD đã có trong V3, chưa hoàn thành toàn bộ V2 · **Phạm vi:** lab service-oriented telemetry. Xem [phạm vi runtime thực tế](docs/05-v3-running-lab.md).
 
 Tất cả ID, port, chu kỳ và ngưỡng dưới đây là **quyết định của project cho lab**, không phải giá trị OEM hay yêu cầu mặc định của AUTOSAR. Tài liệu pin **AUTOSAR Foundation R24-11** làm mốc tham chiếu; không khẳng định đây là release mới nhất. Khi triển khai cần pin thêm tag/commit middleware thực dùng.
 
@@ -640,7 +640,7 @@ Ví dụ: AVAILABLE + STALE = service vẫn quảng bá nhưng pipeline sample/e
 | V2-A11 | Consumer chậm, queue đầy | Queue bounded theo V2-F10, counter drop phản ánh thao tác bỏ sample |
 | V2-A12 | Chạy liên tục 30 phút và stop/start nhiều lần | Không có tăng bộ nhớ không giới hạn/IPC resource tồn dư; lưu cách đo |
 
-Trạng thái hiện tại của toàn bộ V2-A01 đến A12: **chưa triển khai, chưa thực thi**. “Wireshark decode được header” là một bằng chứng cần có, chưa đủ để tuyên bố toàn bộ implementation tuân thủ AUTOSAR.
+V2-A01 đến A12 là các tiêu chí thiết kế, chưa được nghiệm thu đầy đủ. Runtime V3 đã kiểm tra một phần codec/method/event/SD/recovery qua socket thật; coverage thực tế nằm trong [báo cáo kiểm chứng V3](docs/v3-validation.md). Không dùng kết quả subset để tuyên bố toàn bộ implementation tuân thủ AUTOSAR.
 
 ### 7.8. Cách đo để tránh hiểu sai kết quả
 
@@ -744,20 +744,14 @@ Các đường dẫn AUTOSAR trong tài liệu pin R24-11 để người học �
 
 ## 10. V3: DoIP, signal và actuator
 
-Hướng học nâng cao được bổ sung theo ưu tiên DoIP: **Virtual ECU Diagnostic & Actuation Lab**. Đọc [lý thuyết, sơ đồ end-to-end và spec V3](docs/03-doip-signal-actuator.md).
+Đã triển khai **Virtual ECU Diagnostic & Actuation Lab** theo ưu tiên DoIP. Đọc [hướng dẫn bản chạy V3](docs/05-v3-running-lab.md), [báo cáo kiểm chứng](docs/v3-validation.md) và [lý thuyết/contract](docs/03-doip-signal-actuator.md).
 
 V3 có ba đường vào cùng ECU quạt giả lập: signal nhiệt độ cho normal control, SOME/IP service cho command/status và DoIP/UDS cho self-test. Các adapter hội tụ tại application controller/arbiter; một nơi sở hữu đầu ra actuator.
 
-```text
-Signal ── unpack / decode ── vehicle model ── normal controller ──┐
-SOME/IP ── method decoder ── typed normal command ───────────────┤
-DoIP ── UDS dispatcher ── diagnostic routine ────────────────────┤
-                                                              ▼
-                                                  arbiter → HAL → fan simulator
-                                                              │
-                                               feedback → routine result / event
-```
+[![Workflow V3 xuất từ draw.io](docs/images/v3-workflow.png)](docs/images/v3-workflow.png)
 
-Tài liệu V3 giải thích signal/message/PDU, DoIP khác UDS ở đâu, logical addressing/routing activation, byte-level routine request, diagnostic session, admission policy, target/applied/actual state và mapping sang AUTOSAR Classic/Adaptive. ID, signal layout và policy actuator của V3 đều là thiết kế lab, chưa triển khai.
+[Source draw.io](docs/diagrams/v3-workflow.drawio).
+
+V3 có C core xử lý signal, UDS/session/routine, arbitration và fan HAL; Python adapters vận chuyển DoIP/SOME/IP qua socket thật. ID, signal layout và policy là contract riêng của lab. Bản này mô phỏng trách nhiệm các lớp AUTOSAR; chưa có RTE/BSW/ARXML hoặc stack AUTOSAR đầy đủ.
 
 Thứ tự sau phần cơ bản có thể đổi theo ưu tiên: **signal codec → fan simulator → UDS handler → DoIP → session/routine → SOME/IP → arbitration → AUTOSAR integration**. Không bắt buộc hoàn thành toàn bộ service V2 rồi mới học diagnostic.

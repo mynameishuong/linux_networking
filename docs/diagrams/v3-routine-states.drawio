@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="V3 UML routine states" name="V3 UML routine states">
+    <mxGraphModel dx="1480" dy="1170" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1480" pageHeight="1170" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" value="UML STATE — FAN SELF-TEST" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=30;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="25" width="1400" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Routine state và actuator owner là hai domain riêng. Apply/release diễn ra trong control tick." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="1400" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="IDLE&#10;Chưa có routine" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=24;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="535" y="205" width="400" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="RUNNING&#10;Start hợp lệ; control tick cấp DIAG owner&#10;Duration bắt đầu ở tick apply đầu tiên" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="465" y="390" width="540" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="Extended session + fresh speed=0 + test enable" source="n4" target="n5" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="COMPLETED&#10;Hết duration, feedback đạt&#10;liên tục ít nhất 100 ms" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="45" y="650" width="390" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="Đạt tiêu chí" source="n5" target="n7" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0.12;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" value="Lưu result RPM + reason&#10;Trả owner về normal/fallback" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="45" y="860" width="390" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="240" y="775" as="sourcePoint" />
+            <mxPoint x="240" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n11" value="FAILED&#10;Driver fault hoặc feedback&#10;không đạt khi hết duration" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fce8e6;strokeColor=#ba4942;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="545" y="650" width="390" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" value="Lỗi / không đạt" source="n5" target="n11" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" value="Lưu result RPM + reason&#10;Trả owner về normal/fallback" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="545" y="860" width="390" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="740" y="775" as="sourcePoint" />
+            <mxPoint x="740" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n15" value="ABORTED&#10;Stop / speed / stale / session&#10;hoặc tester disconnect" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1045" y="650" width="390" height="125" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="Mất điều kiện" source="n5" target="n15" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0.88;exitY=1;entryX=0.5;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n17" value="Lưu result RPM + reason&#10;Trả owner về normal/fallback" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1045" y="860" width="390" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" value="" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1240" y="775" as="sourcePoint" />
+            <mxPoint x="1240" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n19" value="Query result không start lại routine. Start mới hợp lệ có thể chuyển từ terminal state về RUNNING." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1020" width="1400" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,4 @@
+# Optional independent peers only; the runtime itself uses Python standard library.
+doipclient==1.3.0
+udsoncan==1.26.1
+someip==0.3.0

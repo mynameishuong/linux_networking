@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="V3 implementation workflow" name="V3 implementation workflow">
+    <mxGraphModel dx="1500" dy="1320" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1320" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" value="V3 — TỪ MESSAGE ĐẾN QUẠT GIẢ LẬP" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=30;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="25" width="1420" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Ba đường vào thật qua socket. Một C control tick sở hữu đầu ra actuator." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="1420" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="SIGNAL PRODUCER" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" value="UDP CAN1 / Linux SocketCAN&#10;CAN ID 0x321, payload 8 byte" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="315" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="" source="n4" target="n5" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" value="Unpack bit + decode signal&#10;70°C, speed=0, valid/fresh" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="440" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="" source="n5" target="n7" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" value="Vehicle model&#10;Thermal target + hysteresis" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="565" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="" source="n7" target="n9" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" value="SOME/IP CLIENT" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="550" y="190" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" value="TCP method / UDP SD-event&#10;FanControl + VehicleTelemetry" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="550" y="315" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="" source="n11" target="n12" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" value="Validate header + decode method&#10;SetNormalDuty / GetSnapshot" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="550" y="440" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" value="" source="n12" target="n14" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n16" value="Typed normal command&#10;Duty + lease + duplicate cache" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="550" y="565" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" value="" source="n14" target="n16" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" value="DOIP / UDS TESTER" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="190" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="n19" value="TCP 13400 + UDP discovery&#10;Routing activation + SA / TA" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="315" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" value="" source="n18" target="n19" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n21" value="UDS dispatcher bằng C&#10;Session / DID / RID / conditions" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="440" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" value="" source="n19" target="n21" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n23" value="Diagnostic routine manager&#10;Start / stop / result / deadline" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="565" width="390" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" value="" source="n21" target="n23" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n25" value="C CORE: v3_tick() — chu kỳ mục tiêu 10 ms&#10;DRIVER FAULT → FALLBACK; sau đó DIAGNOSTIC → NORMAL_SERVICE → NORMAL_THERMAL" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=23;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="730" width="1320" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" value="" source="n9" target="n25" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.125;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e27" value="" source="n16" target="n25" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.4962121212121212;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e28" value="" source="n23" target="n25" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.8674242424242424;entryY=0;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n29" value="ACTUATOR HAL — fan_hal.c&#10;Apply target duty → applied duty → simulated actual RPM" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=23;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="390" y="900" width="720" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="n30" value="FEEDBACK VÀ KẾT QUẢ&#10;FanStatus event / UDS DID / RoutineControl result / JSONL trace" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=23;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="330" y="1070" width="840" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="e31" value="" source="n25" target="n29" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e32" value="" source="n29" target="n30" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=0;endArrow=block;endFill=1;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=17;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n33" value="ACCEPTED ≠ APPLIED ≠ actual RPM đạt yêu cầu. Không có handler mạng nào ghi PWM trực tiếp." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=21;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1220" width="1420" height="55" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

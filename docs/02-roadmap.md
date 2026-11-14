@@ -17,7 +17,7 @@ Mục tiêu dài hạn: Virtual Embedded Gateway. Mỗi mốc mở rộng hệ t
 | M8: Embedded target | Sau M4 hoặc M7 | Chạy ECU trên Raspberry Pi, gateway trên Linux VM; cross compile sau khi native ổn | Log và capture trên hai máy, test rút/cắm mạng |
 | M9: Driver trong VM | Nhánh chuyên sâu | Module virtual netdev, TX/RX giả lập; sau đó nghiên cứu MAC/PHY/NAPI/DMA thật | Load/unload, ping, counters, theo dõi lỗi và tài nguyên |
 
-M0 đã có hướng dẫn và code baseline. M1 trở đi là **bài tập chưa triển khai**; không cần làm đồng thời. Automotive SOME/IP, SocketCAN và TSN để sau khi socket, routing và debug đã vững.
+M0 đã có hướng dẫn/code baseline. Các mốc M1–M9 vẫn là bài tập phát triển theo chiều sâu, không có nghĩa mọi mốc đã hoàn thành. Nhánh [V3 DoIP/SOME-IP và actuator](05-v3-running-lab.md) hiện có code/demo/test cho những chức năng được ghi rõ trong hướng dẫn; SocketCAN có adapter nhưng chưa kiểm thử trên Linux. TSN và gateway nhiều ECU vẫn là bước sau.
 
 ## Việc nên tự code ngay sau bốn lab
 

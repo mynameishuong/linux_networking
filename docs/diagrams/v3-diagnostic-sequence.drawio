@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="V3 UML diagnostic sequence" name="V3 UML diagnostic sequence">
+    <mxGraphModel dx="1570" dy="1510" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1570" pageHeight="1510" background="#ffffff">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" value="UML SEQUENCE — DOIP SELF-TEST VÀ SOME/IP ARBITRATION" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=27;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="25" width="1510" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" value="Signal producer vẫn refresh dữ liệu 100 ms. Mỗi dòng là một bước logic theo thời gian." style="rounded=1;whiteSpace=wrap;html=0;fillColor=#f3f5f8;strokeColor=#738196;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=20;spacing=12;fillColor=none;strokeColor=none;rounded=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="1490" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" value="UDS tester" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="35" y="185" width="230" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="" edge="1" parent="1" style="endArrow=none;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="250" as="sourcePoint" />
+            <mxPoint x="150" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n6" value="DoIP adapter" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="325" y="185" width="230" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="" edge="1" parent="1" style="endArrow=none;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="250" as="sourcePoint" />
+            <mxPoint x="440" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n8" value="C core" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="645" y="185" width="230" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="" edge="1" parent="1" style="endArrow=none;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="250" as="sourcePoint" />
+            <mxPoint x="760" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n10" value="Fan HAL" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e3f4ef;strokeColor=#27856b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="965" y="185" width="230" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="" edge="1" parent="1" style="endArrow=none;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1080" y="250" as="sourcePoint" />
+            <mxPoint x="1080" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n12" value="SOME/IP client" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#e8f0fe;strokeColor=#3973bd;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=22;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1285" y="185" width="230" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="" edge="1" parent="1" style="endArrow=none;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="250" as="sourcePoint" />
+            <mxPoint x="1400" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" value="TCP + routing activation" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="300" as="sourcePoint" />
+            <mxPoint x="440" y="300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" value="Routing active: 0x10" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="365" as="sourcePoint" />
+            <mxPoint x="150" y="365" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e16" value="UDS 10 03: extended session" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="430" as="sourcePoint" />
+            <mxPoint x="440" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e17" value="v3_uds(): session=EXTENDED" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="490" as="sourcePoint" />
+            <mxPoint x="760" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e18" value="31 01 F001: 40%, 1000 ms" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="550" as="sourcePoint" />
+            <mxPoint x="440" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" value="DoIP ACK (chỉ tầng DoIP)" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="610" as="sourcePoint" />
+            <mxPoint x="150" y="610" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e20" value="Decode + admission → RUNNING" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="670" as="sourcePoint" />
+            <mxPoint x="760" y="670" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e21" value="UDS 71 01 F001 01: RUNNING" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="730" as="sourcePoint" />
+            <mxPoint x="150" y="730" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" value="Control tick: apply duty 40%" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="805" as="sourcePoint" />
+            <mxPoint x="1080" y="805" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e23" value="Feedback: actual RPM = 2000" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1080" y="870" as="sourcePoint" />
+            <mxPoint x="760" y="870" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e24" value="SetNormalDuty: 60%" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="945" as="sourcePoint" />
+            <mxPoint x="760" y="945" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e25" value="BUSY_DIAGNOSTIC (payload result=1)" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="1005" as="sourcePoint" />
+            <mxPoint x="1400" y="1005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e26" value="Release → normal thermal" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="760" y="1140" as="sourcePoint" />
+            <mxPoint x="1080" y="1140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e27" value="31 03 F001: query result" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="1220" as="sourcePoint" />
+            <mxPoint x="440" y="1220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e28" value="Read terminal result snapshot" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=0;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="1280" as="sourcePoint" />
+            <mxPoint x="760" y="1280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e29" value="UDS: COMPLETED, 2000 RPM" edge="1" parent="1" style="endArrow=block;endFill=1;dashed=1;html=0;strokeColor=#43546a;strokeWidth=2;fontFamily=Arial;fontSize=19;labelBackgroundColor=#ffffff;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="1350" as="sourcePoint" />
+            <mxPoint x="150" y="1350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n30" value="Sau duration: kiểm tra feedback&#10;Đủ tiêu chí mới COMPLETED" style="rounded=1;whiteSpace=wrap;html=0;fillColor=#fff1d6;strokeColor=#c38b2b;strokeWidth=2;fontColor=#172b4d;fontFamily=Arial;fontSize=19;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="605" y="1050" width="310" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

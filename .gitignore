@@ -5,3 +5,4 @@ __pycache__/
 inputs/
 received/
 *.part.*
+artifacts/
